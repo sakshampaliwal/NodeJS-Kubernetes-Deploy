@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  creationTimestamp: "2023-02-18T15:48:26Z"
+  generation: 3
+  labels:
+    app: webapp-deployment
+  name: webapp-deployment
+  namespace: default
+  resourceVersion: "67136"
+  uid: 2dec0bb0-6685-4ad2-acfb-efcb0d932a1e
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 4
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: webapp-deployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: webapp-deployment
+    spec:
+      containers:
+      - image: sakshampaliwal/web-app-deployment:2.0.0
+        imagePullPolicy: Always
+        name: web-app-k8s
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 3
+  conditions:
+  - lastTransitionTime: "2023-02-20T12:30:58Z"
+    lastUpdateTime: "2023-02-20T12:30:58Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2023-02-20T12:30:53Z"
+    lastUpdateTime: "2023-02-20T12:30:58Z"
+    message: ReplicaSet "webapp-deployment-6d79755cb8" is progressing.
+    reason: ReplicaSetUpdated
+    status: "True"
+    type: Progressing
+  observedGeneration: 3
+  readyReplicas: 3
+  replicas: 5
+  unavailableReplicas: 2
+  updatedReplicas: 2
